@@ -1,0 +1,49 @@
+body            { font-family: sans-serif; background: #eee; }
+a, h1, h2       { color: #377BA8; }
+h1, h2          { font-family: 'Georgia', serif; margin: 0; }
+h1              { border-bottom: 2px solid #eee; }
+h2              { font-size: 1.2em; }
+
+.page           { margin: 2em auto; width: 45em; border: 5px solid #ccc;
+                  padding: 0.8em; background: white; }
+
+table.board {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+	margin : 10px 10px;
+}
+table.board thead th {
+    padding: 10px;
+    font-weight: top;
+    vertical-align: middle;
+	text-align: center;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.board tbody th {
+	font-size: 14px;
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+	text-align: center;
+	background: #f3f6f7;
+    border-bottom: 1px solid #ccc;
+}
+table.board td {
+	font-size: 14px;
+    width: 350px;
+    padding: 10px;
+    vertical-align: middle;
+	text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.form      { font-size: 12px;  }
+.form dl   { font-weight: bold; }
+.metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
+                  margin-bottom: 1em; background: #fafafa; }
+.flash          { background: #CEE5F5; padding: 0.5em;
+                  border: 1px solid #AACBE2; }
+.error          { background: #F0D6D6; padding: 0.5em; }

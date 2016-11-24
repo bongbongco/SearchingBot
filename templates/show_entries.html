@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+  {% if session.logged_in %}
+  <table class="board">
+	<thead>
+		<th></th>
+		<th></th>
+		<th></th>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Run Now</th>
+			<td>
+				<form action="{{ url_for('run_schedule') }}" method="post" class="form">
+						<dl>
+							<input type="submit" value="Run" style="width:230px;">
+						</dl>
+				</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<th>Edit Schdule</th>
+			<td>
+				<form action="{{ url_for('edit_schedule') }}" method="post" class="form">
+						<dl>
+							Work Time:&nbsp;
+							<input type="text" value={{schedule.time}} size="9" name="time">
+							O'Clock&nbsp;
+							<input type="submit" value="Apply">
+						</dl>
+				</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<th>Add Keyword</th>
+			<td>
+				<form action="{{ url_for('add_keyword') }}" method="post" class="form">
+					<dl>
+						Keyword:&nbsp;
+						<input type="text" size="20" name="keyword">
+						<input type="submit" value="Add">
+					</dl>
+				</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</tbody>
+  </table>
+
+  {% endif %}
+  <br/>
+  <h2>Keyword List</h2>
+  <table class="board">
+	<thead>
+		<tr>
+			<th scope="row">IDX</th>
+			<th scope="row">Keyword</th>
+			<th scope="row">Count</th>
+			<th scope="row">Date</th>
+			<th scope="row">RMKS</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for keyword in keywords %}
+		<tr>
+			<th>{{ keyword.idx }}</th>
+			<td><strong>{{ keyword.keyword }}</strong></td>
+			<td>{{ keyword.count|safe }}</td>
+			<td>{{ keyword.recentDate|safe }}</td>
+			<td>
+			{% if session.logged_in %}
+				<form action="{{ url_for('delete_keyword') }}" method="post" class="delete-keyword">
+					<input type="hidden" name="idx" value={{ keyword.idx }}>
+					<input type="submit" value="Delete">
+				</form>
+			{% endif %}
+			</td>
+		</tr>
+  {% else %}
+		<tr><td><em>Unbelievable.  No entries here so far</em></td></tr>
+  {% endfor %}
+	</tbody>
+  </table>
+  
+  <br/>
+  <h2>Site List</h2>
+  <table class="board">
+	<thead>
+		<tr>
+			<th scope="row">IDX</th>
+			<th scope="row">site</th>
+			<th scope="row">Count</th>
+			<th scope="row">Date</th>
+			<th scope="row">RMKS</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for site in sites %}
+		<tr>
+			<th>{{ site.idx }}</th>
+			<td><strong>{{ site.site }}</strong></td>
+			<td>{{ site.count|safe }}</td>
+			<td>{{ site.recentDate|safe }}</td>
+			<td></td>
+		</tr>
+  {% else %}
+		<tr><td><em>Unbelievable.  No entries here so far</em></td></tr>
+  {% endfor %}
+	</tbody>
+  </table>
+{% endblock %}
