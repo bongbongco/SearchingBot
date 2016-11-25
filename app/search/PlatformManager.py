@@ -15,11 +15,11 @@ from multiprocessing import Process, Queue
 def GatheringInformation(keyword):
     searchResult = []
 
-    #searchResult.append(BaiduSearch(keyword))
-    #searchResult.append(BingSearch(keyword))
-    #searchResult.append(GoogleSearch(keyword))
-    #searchResult.append(TwitterSearch(keyword))
-    #searchResult.append(YahooSearch(keyword))
+    searchResult.append(BaiduSearch(keyword))
+    searchResult.append(BingSearch(keyword))
+    searchResult.append(GoogleSearch(keyword))
+    searchResult.append(TwitterSearch(keyword))
+    searchResult.append(YahooSearch(keyword))
     #searchResult.append(FacebookSearch(keyword))
     searchResult.append(YoutubeSearch(keyword))
 

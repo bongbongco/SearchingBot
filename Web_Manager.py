@@ -3,10 +3,11 @@
 
 import os
 
-from flask import Flask, request, session, redirect, url_for, abort, render_template, flash
+from flask import Flask, request, session, redirect, url_for, abort, render_template, flash, current_app
 from Config import GetTheConfig, WriteTheConfig
 from app.storage.Database import now, executeNcommit, executeNfetchall
 from src.app.search.SearchManager import RegularSearch
+from flask_paginate import Pagination, get_page_args
 
 app = Flask(__name__)
 
@@ -19,12 +20,42 @@ app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 os.chdir(os.path.dirname(os.path.abspath( __file__ ))) # 작업 경로 변경
 
 
-@app.route('/')
-def show_keyword(error=None):
+@app.route('/', defaults={"keywordPagination" : 1, "sitePagination" : 1})
+@app.route('/page/<int:keywordPagenation>/<int:sitePagenation>')
+def show_keyword(error=None, keywordPagination=1, sitePagination=1):
+	page, per_page, offset = get_page_args()
 	keywords = executeNfetchall(GetTheConfig('query', 'SELECT_KEYWORD_RESEARCH'))
 	sites = executeNfetchall(GetTheConfig('query', 'SELECT_SITE_RESEARCH'))
-	schedule={"time":GetTheConfig('schedule', 'HOUR')} # 스케쥴
-	return render_template('show_entries.html', keywords=keywords, sites=sites, schedule=schedule, error=error)
+	schedule = {"time": GetTheConfig('schedule', 'HOUR')}  # 스케쥴
+
+	keywordTotal = executeNfetchall("select count(*) from keyword_research") # 테스트 후 conf 파일로 11/25
+	siteTotal = executeNfetchall("select count(*) from site_research") # 테스트 후 conf 파일로 11/25
+
+	keywordPagination = get_pagination(page=page,
+								per_page=per_page,
+								total=keywordTotal,
+								record_name='keyword_research',
+								format_total=True,
+								format_number=True,
+								)
+
+	sitePagination = get_pagination(page=page,
+								per_page=per_page,
+								total=siteTotal,
+								record_name='site_research',
+								format_total=True,
+								format_number=True,
+								)
+
+	return render_template('show_entries.html'
+						   , keywords=keywords
+						   , sites=sites
+						   , schedule=schedule
+						   , error=error
+						   , page=page
+						   , per_page=per_page
+						   , keywordPagination=keywordPagination
+						   , sitePagination=sitePagination)
 
 
 @app.route('/keyword/add', methods=['POST'])
@@ -102,7 +133,29 @@ def logout():
 	session.pop('logged_in', None)
 	flash(GetTheConfig('string', 'LOGOUT'))
 	return redirect(url_for('show_keyword'))
-	
+
+
+def get_css_framework():
+    return "bootstrap3" # 테스트 후 conf에 등록하여 사용 11/26
+
+
+def get_link_size():
+    return "sm"# 테스트 후 conf에 등록하여 사용 11/26
+
+
+def show_single_page_or_not():
+    return "False"# 테스트 후 conf에 등록하여 사용 11/26
+
+
+def get_pagination(**kwargs):
+    return Pagination(css_framework=get_css_framework(),
+                      link_size=get_link_size(),
+                      show_single_page=show_single_page_or_not(),
+                      **kwargs['total'][0] # 총 페이지
+                      )
+
+
+
 if __name__ == '__main__':
 
 	app.run()

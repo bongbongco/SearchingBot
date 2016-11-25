@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+{% if session.logged_in %}
+  <table class="board">
+	<thead>
+		<th></th>
+		<th></th>
+		<th></th>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Run Now</th>
+			<td>
+				<form action="{{ url_for('run_schedule') }}" method="post" class="form">
+						<dl>
+							<input type="submit" value="Run" style="width:230px;">
+						</dl>
+				</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<th>Edit Schdule</th>
+			<td>
+				<form action="{{ url_for('edit_schedule') }}" method="post" class="form">
+						<dl>
+							Work Time:&nbsp;
+							<input type="text" value={{schedule.time}} size="9" name="time">
+							O'Clock&nbsp;
+							<input type="submit" value="Apply">
+						</dl>
+				</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<th>Add Keyword</th>
+			<td>
+				<form action="{{ url_for('add_keyword') }}" method="post" class="form">
+					<dl>
+						Keyword:&nbsp;
+						<input type="text" size="20" name="keyword">
+						<input type="submit" value="Add">
+					</dl>
+				</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+	</tbody>
+  </table>
+  {% endif %}
+</body>
+</html>

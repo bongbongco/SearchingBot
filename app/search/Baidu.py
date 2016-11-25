@@ -37,6 +37,8 @@ def BaiduSearch(keyword):
         count = count + 1
         paging = 10 * count
         html = getHtml("http://www.baidu.com/s?wd=%s&pn=%s" % (keyword, str(paging)))
+        if html == "Online Shield":
+            continue
         storedBaiduUrls = getElement(regexStoredBaiduUrl, html)
         realUrls = getRealUrl(storedBaiduUrls)
 

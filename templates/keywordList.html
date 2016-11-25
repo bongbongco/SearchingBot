@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+  <h2>Keyword List</h2>
+  {{ keywordPagination.info }}
+  <table class="board">
+	<thead>
+		<tr>
+			<th scope="row">IDX</th>
+			<th scope="row">Keyword</th>
+			<th scope="row">Count</th>
+			<th scope="row">Date</th>
+			<th scope="row">RMKS</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for keyword in keywords %}
+		<tr>
+			<th>{{ keyword.idx }}</th>
+			<td><strong>{{ keyword.keyword }}</strong></td>
+			<td>{{ keyword.count|safe }}</td>
+			<td>{{ keyword.recentDate|safe }}</td>
+			<td>
+			{% if session.logged_in %}
+				<form action="{{ url_for('delete_keyword') }}" method="post" class="delete-keyword">
+					<input type="hidden" name="idx" value={{ keyword.idx }}>
+					<input type="submit" value="Delete">
+				</form>
+			{% endif %}
+			</td>
+		</tr>
+  {% else %}
+		<tr><td><em>Unbelievable.  No entries here so far</em></td></tr>
+  {% endfor %}
+	</tbody>
+  </table>
+{{ keywordPagination.links }}
+</body>
+</html>

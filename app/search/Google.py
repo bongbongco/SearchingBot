@@ -14,9 +14,7 @@ def RequestSearch(urls, keyword):
         searchCurs = searchCurs + 1
         sleep(1)
         if searchCurs == int(GetTheConfig('google', 'QUANTITY')):
-            return urls
-
-    return urls
+            return urls  # 리턴 문에 문제가 있음 11/24
 
 def GoogleSearch(keyword):
     urls = []

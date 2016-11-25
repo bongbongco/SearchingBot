@@ -2,6 +2,7 @@
 # !/usr/bin/python
 
 from operator import eq
+from types import *
 
 def DeduplicateValue(sources, destinations=None):
     sourceTemp = []
@@ -19,20 +20,23 @@ def DeduplicateValue(sources, destinations=None):
 def CheckDeduplicateValue(sources, destination=None):
     result = []
 
-    for source in sources:
-        duplicate = False
-        if destination == None:
-            sourceTemp = sources[:] # 자기 자신과 비교
-            sourceTemp.remove(source)  # remove는 인자 값과 일치하는 요소 하나를 제거
-        elif not destination == None:
-            sourceTemp = destination[:] # 데이터베이스에 저장된 데이터와 비교
+    if not type(sources) == NoneType: # null check
+        for source in sources:
+            duplicate = False
+            if destination == None:
+                sourceTemp = sources[:] # 자기 자신과 비교
+                sourceTemp.remove(source)  # remove는 인자 값과 일치하는 요소 하나를 제거
+            elif not destination == None:
+                sourceTemp = destination[:] # 데이터베이스에 저장된 데이터와 비교
 
-        for temp in sourceTemp:
-            if eq(temp, source):
-                duplicate = True
+            for temp in sourceTemp:
+                if eq(temp, source):
+                    duplicate = True
 
-        if not duplicate:
-            result.append(source)
+            if not duplicate:
+                result.append(source)
+    else:
+        print "To occur NoneType"
     return result
 
 def ExtractValue(source):
