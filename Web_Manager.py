@@ -28,8 +28,8 @@ def show_keyword(error=None, keywordPagination=1, sitePagination=1):
 	sites = executeNfetchall(GetTheConfig('query', 'SELECT_SITE_RESEARCH'))
 	schedule = {"time": GetTheConfig('schedule', 'HOUR')}  # 스케쥴
 
-	keywordTotal = executeNfetchall("select count(*) from keyword_research") # 테스트 후 conf 파일로 11/25
-	siteTotal = executeNfetchall("select count(*) from site_research") # 테스트 후 conf 파일로 11/25
+	keywordTotal = executeNfetchall(GetTheConfig('query',"keywordTotal")) # 저장된 keyword 총 개수
+	siteTotal = executeNfetchall(GetTheConfig('query',"siteTotal")) # 저장된 site 총 개수
 
 	keywordPagination = get_pagination(page=page,
 								per_page=per_page,

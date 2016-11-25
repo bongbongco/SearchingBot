@@ -66,8 +66,6 @@ def SavingSearchData(searchResults):
                         platform = urlDictionary.keys()[0]
                         break
 
-
-
         siteUrl = ExtractDomain(url)  # 도메인 추출
         matchWorkerUrls.append({'worker': worker[workerIndex]  # 담당자 지정
                                    , 'platform':platform
