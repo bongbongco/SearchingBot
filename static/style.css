@@ -10,6 +10,7 @@ h2              { font-size: 1.2em; }
 table.board {
     border-collapse: collapse;
     text-align: left;
+    vertical-align:middle
     line-height: 1.5;
 	margin : 10px 10px;
 }

@@ -135,27 +135,13 @@ def logout():
 	return redirect(url_for('show_keyword'))
 
 
-def get_css_framework():
-    return "bootstrap3" # 테스트 후 conf에 등록하여 사용 11/26
-
-
-def get_link_size():
-    return "sm"# 테스트 후 conf에 등록하여 사용 11/26
-
-
-def show_single_page_or_not():
-    return "False"# 테스트 후 conf에 등록하여 사용 11/26
-
-
 def get_pagination(**kwargs):
-    return Pagination(css_framework=get_css_framework(),
-                      link_size=get_link_size(),
-                      show_single_page=show_single_page_or_not(),
+    return Pagination(css_framework=GetTheConfig('manager', 'css_framework'),
+                      link_size=GetTheConfig('manager', 'link_size'),
+                      show_single_page=GetTheConfig('manager', 'single_page_or_not'),
                       **kwargs['total'][0] # 총 페이지
                       )
 
 
-
 if __name__ == '__main__':
-
 	app.run()
