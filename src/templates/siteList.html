@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+     <h2>Site List</h2>
+     {{ sitePagination.info }}
+  <table class="board">
+	<thead>
+		<tr>
+			<th scope="row">IDX</th>
+			<th scope="row">site</th>
+			<th scope="row">Count</th>
+			<th scope="row">Date</th>
+			<th scope="row">RMKS</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for site in sites %}
+		<tr>
+			<th>{{ site.idx }}</th>
+			<td><strong>{{ site.site }}</strong></td>
+			<td>{{ site.count|safe }}</td>
+			<td>{{ site.recentDate|safe }}</td>
+			<td></td>
+		</tr>
+  {% else %}
+		<tr><td><em>Unbelievable.  No entries here so far</em></td></tr>
+  {% endfor %}
+	</tbody>
+  </table>
+  {{ sitePagination.links }}
+</body>
+</html>

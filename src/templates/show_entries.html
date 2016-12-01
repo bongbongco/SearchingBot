@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+{% include 'control.html' %}
+  <br/>
+<div class="content">
+	<div style="width:100%;height:50%">
+		{% include 'keywordList.html' %}
+	</div>
+	<br/>
+	<div style="width:100%;height:50%">
+		{% include 'siteList.html' %}
+	</div>
+</div>
+
+{% endblock %}
