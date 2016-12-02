@@ -4,7 +4,9 @@
 import pymysql
 from datetime import timedelta, date
 from Config import GetTheConfig
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 def connect_db(readData="save"):
 	if readData == "distribute":
@@ -18,6 +20,9 @@ def connect_db(readData="save"):
 						   , db=DB
 						   , charset=GetTheConfig('database', 'CHARSET'))
 	return conn
+
+def init_db():
+  Base.metadata.create_all(engine)
 
 
 def get_db(conn):
